@@ -1,8 +1,35 @@
 package com.fredericboisguerin.insa.network.core.service;
 
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.net.*;
+
+
 public class UDPMessageSenderService implements MessageSenderService {
     @Override
     public void sendMessageOn(String ipAddress, int port, String message) throws Exception {
-        throw new UnsupportedOperationException();
+        DatagramSocket sock = null;
+
+        BufferedReader cin = new BufferedReader(new InputStreamReader(System.in));
+
+        try
+        {
+            sock = new DatagramSocket();
+
+            InetAddress host = InetAddress.getByName("localhost");
+
+            byte[] b = message.getBytes();
+
+            DatagramPacket  dp = new DatagramPacket(b , b.length , host , port);
+            sock.send(dp);
+
+        }
+
+        catch(IOException e)
+        {
+            throw new UnsupportedOperationException();
+        }
+
     }
 }
