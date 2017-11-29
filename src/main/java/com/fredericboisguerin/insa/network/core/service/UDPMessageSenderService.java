@@ -16,14 +16,11 @@ public class UDPMessageSenderService implements MessageSenderService {
         try
         {
             sock = new DatagramSocket();
-
-            InetAddress host = InetAddress.getByName("localhost");
-
+            InetAddress host = InetAddress.getByName(ipAddress);
             byte[] b = message.getBytes();
-
             DatagramPacket  dp = new DatagramPacket(b , b.length , host , port);
             sock.send(dp);
-
+            sock.close();
         }
 
         catch(IOException e)
